@@ -1,9 +1,4 @@
-import {
-  Banknote,
-  ChartBar,
-  LayoutDashboard,
-  type LucideIcon,
-} from "lucide-react";
+import { ChartBar, LayoutDashboard, type LucideIcon } from 'lucide-react';
 
 export interface NavSubItem {
   title: string;
@@ -33,16 +28,16 @@ export interface NavGroup {
 export const sidebarItems: NavGroup[] = [
   {
     id: 1,
-    label: "Dashboards",
+    label: 'Dashboards',
     items: [
       {
-        title: "Default",
-        url: "/dashboard/default",
+        title: 'Default',
+        url: '/dashboard/default',
         icon: LayoutDashboard,
       },
       {
-        title: "CRM",
-        url: "/dashboard/crm",
+        title: 'CRM',
+        url: '/dashboard/crm',
         icon: ChartBar,
       },
     ],

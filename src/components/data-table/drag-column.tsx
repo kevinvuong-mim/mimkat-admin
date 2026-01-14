@@ -1,10 +1,10 @@
-"use no memo";
+'use no memo';
 
-import { useSortable } from "@dnd-kit/sortable";
-import type { ColumnDef } from "@tanstack/react-table";
-import { GripVertical } from "lucide-react";
+import { useSortable } from '@dnd-kit/sortable';
+import type { ColumnDef } from '@tanstack/react-table';
+import { GripVertical } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 function DragHandle({ id }: { id: number }) {
   const { attributes, listeners } = useSortable({
@@ -17,16 +17,16 @@ function DragHandle({ id }: { id: number }) {
       {...listeners}
       variant="ghost"
       size="icon"
-      className="size-7 text-muted-foreground hover:bg-transparent"
+      className="text-muted-foreground size-7 hover:bg-transparent"
     >
-      <GripVertical className="size-3 text-muted-foreground" />
+      <GripVertical className="text-muted-foreground size-3" />
       <span className="sr-only">Drag to reorder</span>
     </Button>
   );
 }
 
 export const dragColumn: ColumnDef<any> = {
-  id: "drag",
+  id: 'drag',
   header: () => null,
   cell: ({ row }) => <DragHandle id={row.original.id} />,
   enableSorting: false,

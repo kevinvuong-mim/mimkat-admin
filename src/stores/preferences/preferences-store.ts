@@ -1,9 +1,14 @@
-import { createStore } from "zustand/vanilla";
+import { createStore } from 'zustand/vanilla';
 
-import type { FontKey } from "@/lib/fonts/registry";
-import type { ContentLayout, NavbarStyle, SidebarCollapsible, SidebarVariant } from "@/lib/preferences/layout";
-import { PREFERENCE_DEFAULTS } from "@/lib/preferences/preferences-config";
-import type { ResolvedThemeMode, ThemeMode, ThemePreset } from "@/lib/preferences/theme";
+import type { FontKey } from '@/lib/fonts/registry';
+import type {
+  ContentLayout,
+  NavbarStyle,
+  SidebarCollapsible,
+  SidebarVariant,
+} from '@/lib/preferences/layout';
+import { PREFERENCE_DEFAULTS } from '@/lib/preferences/preferences-config';
+import type { ResolvedThemeMode, ThemeMode, ThemePreset } from '@/lib/preferences/theme';
 
 export type PreferencesState = {
   themeMode: ThemeMode;
@@ -29,7 +34,7 @@ export type PreferencesState = {
 export const createPreferencesStore = (init?: Partial<PreferencesState>) =>
   createStore<PreferencesState>()((set) => ({
     themeMode: init?.themeMode ?? PREFERENCE_DEFAULTS.theme_mode,
-    resolvedThemeMode: init?.resolvedThemeMode ?? "light",
+    resolvedThemeMode: init?.resolvedThemeMode ?? 'light',
     themePreset: init?.themePreset ?? PREFERENCE_DEFAULTS.theme_preset,
     font: init?.font ?? PREFERENCE_DEFAULTS.font,
     contentLayout: init?.contentLayout ?? PREFERENCE_DEFAULTS.content_layout,

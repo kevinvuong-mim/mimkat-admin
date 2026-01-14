@@ -1,10 +1,10 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 /* Theme preset styles: these override CSS variables based on the selected data-theme-preset */
-@import "../styles/presets/brutalist.css";
-@import "../styles/presets/soft-pop.css";
-@import "../styles/presets/tangerine.css";
+@import '../styles/presets/brutalist.css';
+@import '../styles/presets/soft-pop.css';
+@import '../styles/presets/tangerine.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -136,72 +136,72 @@ These serve as the fallback; there is no separate default.css file. */
 }
 
 @layer utilities {
-  [data-theme-preset]:not([data-theme-preset="default"]) .shadow-2xs {
+  [data-theme-preset]:not([data-theme-preset='default']) .shadow-2xs {
     box-shadow: var(--shadow-2xs);
   }
 
-  [data-theme-preset]:not([data-theme-preset="default"]) .shadow-xs {
+  [data-theme-preset]:not([data-theme-preset='default']) .shadow-xs {
     box-shadow: var(--shadow-xs);
   }
 
-  [data-theme-preset]:not([data-theme-preset="default"]) .shadow-sm {
+  [data-theme-preset]:not([data-theme-preset='default']) .shadow-sm {
     box-shadow: var(--shadow-sm);
   }
 
-  [data-theme-preset]:not([data-theme-preset="default"]) .shadow {
+  [data-theme-preset]:not([data-theme-preset='default']) .shadow {
     box-shadow: var(--shadow);
   }
 
-  [data-theme-preset]:not([data-theme-preset="default"]) .shadow-md {
+  [data-theme-preset]:not([data-theme-preset='default']) .shadow-md {
     box-shadow: var(--shadow-md);
   }
 
-  [data-theme-preset]:not([data-theme-preset="default"]) .shadow-lg {
+  [data-theme-preset]:not([data-theme-preset='default']) .shadow-lg {
     box-shadow: var(--shadow-lg);
   }
 
-  [data-theme-preset]:not([data-theme-preset="default"]) .shadow-xl {
+  [data-theme-preset]:not([data-theme-preset='default']) .shadow-xl {
     box-shadow: var(--shadow-xl);
   }
 
-  [data-theme-preset]:not([data-theme-preset="default"]) .shadow-2xl {
+  [data-theme-preset]:not([data-theme-preset='default']) .shadow-2xl {
     box-shadow: var(--shadow-2xl);
   }
 
-  html[data-font="inter"] body {
+  html[data-font='inter'] body {
     --font-sans: var(--font-inter);
   }
-  html[data-font="roboto"] body {
+  html[data-font='roboto'] body {
     --font-sans: var(--font-roboto);
   }
-  html[data-font="poppins"] body {
+  html[data-font='poppins'] body {
     --font-sans: var(--font-poppins);
   }
-  html[data-font="geist"] body {
+  html[data-font='geist'] body {
     --font-sans: var(--font-geist);
   }
-  html[data-font="geistMono"] body {
+  html[data-font='geistMono'] body {
     --font-sans: var(--font-geist-mono);
   }
-  html[data-font="jakarta"] body {
+  html[data-font='jakarta'] body {
     --font-sans: var(--font-jakarta);
   }
-  html[data-font="nunito"] body {
+  html[data-font='nunito'] body {
     --font-sans: var(--font-nunito);
   }
-  html[data-font="gabriela"] body {
+  html[data-font='gabriela'] body {
     --font-sans: var(--font-gabriela);
   }
-  html[data-font="outfit"] body {
+  html[data-font='outfit'] body {
     --font-sans: var(--font-outfit);
   }
-  html[data-font="manrope"] body {
+  html[data-font='manrope'] body {
     --font-sans: var(--font-manrope);
   }
-  html[data-font="dmSans"] body {
+  html[data-font='dmSans'] body {
     --font-sans: var(--font-dm-sans);
   }
-  html[data-font="greatVibes"] body {
+  html[data-font='greatVibes'] body {
     --font-sans: var(--font-great-vibes);
   }
 }

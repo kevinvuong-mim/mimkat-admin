@@ -1,5 +1,5 @@
-"use no memo";
-import * as React from "react";
+'use no memo';
+import * as React from 'react';
 
 import {
   type ColumnDef,
@@ -13,7 +13,7 @@ import {
   type SortingState,
   useReactTable,
   type VisibilityState,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
 type UseDataTableInstanceProps<TData, TValue> = {
   data: TData[];
