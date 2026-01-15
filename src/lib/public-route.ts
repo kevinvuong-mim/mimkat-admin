@@ -16,7 +16,5 @@ const getPublicRoutes = (): string[] => {
 export const isPublicRoute = (pathname: string): boolean => {
   const publicRoutes = getPublicRoutes();
 
-  console.log(publicRoutes);
-
   return publicRoutes.some((route) => pathname.startsWith(route));
 };
