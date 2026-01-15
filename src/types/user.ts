@@ -16,8 +16,8 @@ interface CurrentUser extends User {
   isEmailVerified: boolean;
 }
 
-interface CurrentUserContextType {
-  currentUser: null | CurrentUser;
+interface CurrentUserState {
+  currentUser: undefined | CurrentUser;
 }
 
-export type { User, CurrentUser, CurrentUserContextType };
+export type { User, CurrentUser, CurrentUserState };

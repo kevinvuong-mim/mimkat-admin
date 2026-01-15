@@ -6,7 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import { type StoreApi, useStore } from 'zustand';
 
 import { getMe } from '@/services/users';
-import { createCurrentUserStore, type CurrentUserState } from './current-user-store';
+import { CurrentUserState } from '@/types';
+import { createCurrentUserStore } from './current-user-store';
 
 const CurrentUserStoreContext = createContext<StoreApi<CurrentUserState> | null>(null);
 

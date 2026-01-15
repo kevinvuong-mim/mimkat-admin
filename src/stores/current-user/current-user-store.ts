@@ -1,10 +1,6 @@
 import { createStore } from 'zustand/vanilla';
 
-import type { CurrentUser } from '@/types/user';
-
-export type CurrentUserState = {
-  currentUser: CurrentUser | undefined;
-};
+import { CurrentUserState } from '@/types/user';
 
 export const createCurrentUserStore = (init: Partial<CurrentUserState>) =>
   createStore<CurrentUserState>()(() => ({
