@@ -14,7 +14,7 @@ import {
 import { ChartContainer } from '@/components/ui/chart';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
-import { cn, formatCurrency } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 import {
   actionItems,
@@ -65,9 +65,7 @@ export function OperationalCards() {
       <Card>
         <CardHeader>
           <CardTitle>Sales by Region</CardTitle>
-          <CardDescription className="font-medium tabular-nums">
-            {formatCurrency(totalSales, { noDecimals: true })}
-          </CardDescription>
+          <CardDescription className="font-medium tabular-nums">{totalSales}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-2.5">
@@ -76,9 +74,7 @@ export function OperationalCards() {
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">{region.region}</span>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-sm font-semibold tabular-nums">
-                      {formatCurrency(region.sales, { noDecimals: true })}
-                    </span>
+                    <span className="text-sm font-semibold tabular-nums">{region.sales}</span>
                     <span
                       className={cn(
                         'text-xs font-medium tabular-nums',

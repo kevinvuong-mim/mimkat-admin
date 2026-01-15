@@ -11,25 +11,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { cn, getInitials } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import { useCurrentUserStore } from '@/stores/current-user/current-user-provider';
+import { logout } from '@/services/auth';
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
-export function AccountSwitcher({
-  user,
-}: {
-  readonly user: Readonly<{
-    readonly id: string;
-    readonly name: string;
-    readonly email: string;
-    readonly avatar: string;
-    readonly role: string;
-  }>;
-}) {
+export function AccountSwitcher() {
+  const router = useRouter();
+  const currentUser = useCurrentUserStore((s) => s.currentUser);
+
+  const { mutate } = useMutation({
+    mutationFn: logout,
+    onSuccess: () => router.push('/login'),
+    onError: (err) => toast.error(err.message),
+  });
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="size-9 rounded-lg">
-          <AvatarImage src={user.avatar || undefined} alt={user.name} />
-          <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
+          <AvatarImage src={currentUser?.avatar} alt={currentUser?.fullName} />
+          <AvatarFallback className="rounded-lg">{currentUser?.fullName}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -38,15 +42,15 @@ export function AccountSwitcher({
         align="end"
         sideOffset={4}
       >
-        <DropdownMenuItem key={user.email} className={cn('p-0')}>
+        <DropdownMenuItem key={currentUser?.email} className={cn('p-0')}>
           <div className="flex w-full items-center justify-between gap-2 px-1 py-1.5">
             <Avatar className="size-9 rounded-lg">
-              <AvatarImage src={user.avatar || undefined} alt={user.name} />
-              <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
+              <AvatarImage src={currentUser?.avatar} alt={currentUser?.fullName} />
+              <AvatarFallback className="rounded-lg">{currentUser?.fullName}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">{user.name}</span>
-              <span className="truncate text-xs capitalize">{user.role}</span>
+              <span className="truncate font-semibold">{currentUser?.fullName}</span>
+              <span className="truncate text-xs capitalize">{currentUser?.email}</span>
             </div>
           </div>
         </DropdownMenuItem>
@@ -66,7 +70,7 @@ export function AccountSwitcher({
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={mutate}>
           <LogOut />
           Log out
         </DropdownMenuItem>

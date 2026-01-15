@@ -14,7 +14,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { rootUser } from '@/data/users';
 import { usePreferencesStore } from '@/stores/preferences/preferences-provider';
 
 import { NavMain } from './nav-main';
@@ -65,7 +64,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={rootUser} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   );
