@@ -6,9 +6,7 @@ import { AppSidebar } from '@/app/(private)/dashboard/_components/sidebar/app-si
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { rootUser } from '@/data/users';
-import { SIDEBAR_COLLAPSIBLE_VALUES, SIDEBAR_VARIANT_VALUES } from '@/lib/preferences/layout';
 import { cn } from '@/lib/utils';
-import { getPreference } from '@/server/server-actions';
 
 import { AccountSwitcher } from './dashboard/_components/sidebar/account-switcher';
 import { LayoutControls } from './dashboard/_components/sidebar/layout-controls';
@@ -18,14 +16,10 @@ import { ThemeSwitcher } from './dashboard/_components/sidebar/theme-switcher';
 export default async function Layout({ children }: Readonly<{ children: ReactNode }>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar_state')?.value !== 'false';
-  const [variant, collapsible] = await Promise.all([
-    getPreference('sidebar_variant', SIDEBAR_VARIANT_VALUES, 'inset'),
-    getPreference('sidebar_collapsible', SIDEBAR_COLLAPSIBLE_VALUES, 'icon'),
-  ]);
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <AppSidebar variant={variant} collapsible={collapsible} />
+      <AppSidebar />
       <SidebarInset
         className={cn(
           '[html[data-content-layout=centered]_&]:mx-auto! [html[data-content-layout=centered]_&]:max-w-screen-2xl!',

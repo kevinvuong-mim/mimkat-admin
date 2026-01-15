@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { Command } from 'lucide-react';
+import { Command, ChartBar, LayoutDashboard } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 
 import {
@@ -14,42 +14,55 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { APP_CONFIG } from '@/config/app-config';
 import { rootUser } from '@/data/users';
-import { sidebarItems } from '@/navigation/sidebar/sidebar-items';
 import { usePreferencesStore } from '@/stores/preferences/preferences-provider';
 
 import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { sidebarVariant, sidebarCollapsible, isSynced } = usePreferencesStore(
+  const { sidebarVariant, sidebarCollapsible } = usePreferencesStore(
     useShallow((s) => ({
       sidebarVariant: s.sidebarVariant,
       sidebarCollapsible: s.sidebarCollapsible,
-      isSynced: s.isSynced,
     })),
   );
 
-  const variant = isSynced ? sidebarVariant : props.variant;
-  const collapsible = isSynced ? sidebarCollapsible : props.collapsible;
-
   return (
-    <Sidebar {...props} variant={variant} collapsible={collapsible}>
+    <Sidebar {...props} variant={sidebarVariant} collapsible={sidebarCollapsible}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link prefetch={false} href="/dashboard/default">
                 <Command />
-                <span className="text-base font-semibold">{APP_CONFIG.name}</span>
+                <span className="text-base font-semibold">Mimkat Admin</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={sidebarItems} />
+        <NavMain
+          items={[
+            {
+              id: 1,
+              label: 'Dashboards',
+              items: [
+                {
+                  title: 'Default',
+                  icon: LayoutDashboard,
+                  url: '/dashboard/default',
+                },
+                {
+                  title: 'CRM',
+                  icon: ChartBar,
+                  url: '/dashboard/crm',
+                },
+              ],
+            },
+          ]}
+        />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={rootUser} />

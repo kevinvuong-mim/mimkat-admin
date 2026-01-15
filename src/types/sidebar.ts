@@ -1,4 +1,4 @@
-import { ChartBar, LayoutDashboard, type LucideIcon } from 'lucide-react';
+import { type LucideIcon } from 'lucide-react';
 
 export interface NavSubItem {
   title: string;
@@ -24,22 +24,3 @@ export interface NavGroup {
   label?: string;
   items: NavMainItem[];
 }
-
-export const sidebarItems: NavGroup[] = [
-  {
-    id: 1,
-    label: 'Dashboards',
-    items: [
-      {
-        title: 'Default',
-        url: '/dashboard/default',
-        icon: LayoutDashboard,
-      },
-      {
-        title: 'CRM',
-        url: '/dashboard/crm',
-        icon: ChartBar,
-      },
-    ],
-  },
-];

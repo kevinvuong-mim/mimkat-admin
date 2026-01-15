@@ -2,7 +2,6 @@
  * How each preference should be saved.
  *
  * "client-cookie"  → write cookie on the browser only.
- * "server-cookie"  → write cookie through a Server Action.
  * "localStorage"   → save only on the client (non-layout stuff).
  * "none"           → no saving, resets on reload.
  *
@@ -16,7 +15,7 @@ import type { FontKey } from '@/lib/fonts/registry';
 import type { ContentLayout, NavbarStyle, SidebarCollapsible, SidebarVariant } from './layout';
 import type { ThemeMode, ThemePreset } from './theme';
 
-export type PreferencePersistence = 'none' | 'client-cookie' | 'server-cookie' | 'localStorage';
+export type PreferencePersistence = 'none' | 'client-cookie' | 'localStorage';
 
 /**
  * All available preference keys and their value types.
