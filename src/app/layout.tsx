@@ -53,7 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           font={font}
         >
           <QueryProvider>{children}</QueryProvider>
-          <Toaster />
+          <Toaster position="top-center" />
         </PreferencesStoreProvider>
       </body>
     </html>

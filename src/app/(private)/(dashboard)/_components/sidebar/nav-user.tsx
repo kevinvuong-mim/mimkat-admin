@@ -1,6 +1,7 @@
 'use client';
 
-import { CircleUser, CreditCard, EllipsisVertical, LogOut, MessageSquareDot } from 'lucide-react';
+import { EllipsisVertical, LogOut, Monitor } from 'lucide-react';
+import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -45,7 +46,10 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={currentUser?.avatar} alt={currentUser?.fullName} />
+                <AvatarImage
+                  src={currentUser?.avatar || '/images/default-user.png'}
+                  alt={currentUser?.fullName}
+                />
                 <AvatarFallback className="rounded-lg">{currentUser?.fullName}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -64,7 +68,10 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={currentUser?.avatar} alt={currentUser?.fullName} />
+                  <AvatarImage
+                    src={currentUser?.avatar || '/images/default-user.png'}
+                    alt={currentUser?.fullName}
+                  />
                   <AvatarFallback className="rounded-lg">{currentUser?.fullName}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -77,17 +84,11 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <CircleUser />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <MessageSquareDot />
-                Notifications
+              <DropdownMenuItem asChild>
+                <Link href="/sessions">
+                  <Monitor />
+                  Sessions
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

@@ -33,7 +33,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link prefetch={false} href="/dashboard/default">
+              <Link prefetch={false} href="/default">
                 <Command />
                 <span className="text-base font-semibold">Mimkat Admin</span>
               </Link>
@@ -51,12 +51,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {
                   title: 'Default',
                   icon: LayoutDashboard,
-                  url: '/dashboard/default',
+                  url: '/default',
                 },
                 {
                   title: 'CRM',
                   icon: ChartBar,
-                  url: '/dashboard/crm',
+                  url: '/crm',
                 },
               ],
             },

@@ -14,7 +14,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { useMutation } from '@tanstack/react-query';
 import { Input } from '@/components/ui/input';
+import { register } from '@/services/auth';
+import { useRouter } from 'next/navigation';
 
 const FormSchema = z
   .object({
@@ -30,6 +33,11 @@ const FormSchema = z
   });
 
 export function RegisterForm() {
+  const router = useRouter();
+  const { mutate, isPending } = useMutation({
+    mutationFn: register,
+  });
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -40,13 +48,27 @@ export function RegisterForm() {
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    toast('You submitted the following values', {
-      description: (
-        <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    if (data.password !== data.confirmPassword) {
+      toast.error('Passwords do not match.');
+      return;
+    }
+    mutate(
+      { email: data.email, password: data.password },
+      {
+        onSuccess: () => {
+          form.reset();
+
+          toast.success('Registration successful! Please check your email to verify your account.');
+
+          setTimeout(() => {
+            router.push('/login');
+          }, 1500);
+        },
+        onError: (error: any) => {
+          toast.error(error.message || 'Registration failed. Please try again.');
+        },
+      },
+    );
   };
 
   return (
@@ -109,7 +131,7 @@ export function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button className="w-full" type="submit" disabled={isPending}>
           Register
         </Button>
       </form>

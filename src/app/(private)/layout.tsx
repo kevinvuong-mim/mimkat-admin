@@ -2,15 +2,11 @@ import type { ReactNode } from 'react';
 
 import { cookies } from 'next/headers';
 
-import { AppSidebar } from '@/app/(private)/dashboard/_components/sidebar/app-sidebar';
-import { Separator } from '@/components/ui/separator';
+import { AppSidebar } from '@/app/(private)/(dashboard)/_components/sidebar/app-sidebar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 
-import { AccountSwitcher } from './dashboard/_components/sidebar/account-switcher';
-import { LayoutControls } from './dashboard/_components/sidebar/layout-controls';
-import { SearchDialog } from './dashboard/_components/sidebar/search-dialog';
-import { ThemeSwitcher } from './dashboard/_components/sidebar/theme-switcher';
+import { LayoutControls } from './(dashboard)/_components/sidebar/layout-controls';
 import { CurrentUserStoreProvider } from '@/stores/current-user/current-user-provider';
 
 export default async function Layout({ children }: Readonly<{ children: ReactNode }>) {
@@ -39,16 +35,9 @@ export default async function Layout({ children }: Readonly<{ children: ReactNod
             <div className="flex w-full items-center justify-between px-4 lg:px-6">
               <div className="flex items-center gap-1 lg:gap-2">
                 <SidebarTrigger className="-ml-1" />
-                <Separator
-                  orientation="vertical"
-                  className="mx-2 data-[orientation=vertical]:h-4"
-                />
-                <SearchDialog />
               </div>
               <div className="flex items-center gap-2">
                 <LayoutControls />
-                <ThemeSwitcher />
-                <AccountSwitcher />
               </div>
             </div>
           </header>
