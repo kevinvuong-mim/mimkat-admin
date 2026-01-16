@@ -7,7 +7,6 @@ import { z } from 'zod';
 import { useMutation } from '@tanstack/react-query';
 
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,

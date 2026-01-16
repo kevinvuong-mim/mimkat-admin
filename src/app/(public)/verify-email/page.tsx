@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Mail, Loader2, XCircle, CheckCircle2 } from 'lucide-react';
@@ -9,7 +9,7 @@ import { Mail, Loader2, XCircle, CheckCircle2 } from 'lucide-react';
 import { verifyEmail } from '@/services/auth';
 import { Button } from '@/components/ui/button';
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [countdown, setCountdown] = useState(10);
@@ -105,5 +105,21 @@ export default function VerifyEmailPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500 p-4 dark:from-blue-900 dark:via-blue-800 dark:to-blue-950">
+          <div className="flex items-center justify-center">
+            <Loader2 className="h-16 w-16 animate-spin text-white" />
+          </div>
+        </div>
+      }
+    >
+      <VerifyEmailContent />
+    </Suspense>
   );
 }
