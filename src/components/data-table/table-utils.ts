@@ -1,5 +1,3 @@
-'use no memo';
-
 import type { ColumnDef } from '@tanstack/react-table';
 
 import { dragColumn } from './drag-column';

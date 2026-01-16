@@ -1,10 +1,12 @@
-import type { ResolvedThemeMode, ThemeMode } from './theme';
+import { ThemeMode, ResolvedThemeMode } from './theme';
 
 export function resolveThemeMode(mode: ThemeMode): ResolvedThemeMode {
   if (mode === 'system') {
     const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches;
+
     return prefersDark ? 'dark' : 'light';
   }
+
   return mode === 'dark' ? 'dark' : 'light';
 }
 
@@ -18,6 +20,7 @@ export function applyThemeMode(mode: ThemeMode): ResolvedThemeMode {
   requestAnimationFrame(() => {
     doc.classList.remove('disable-transitions');
   });
+
   return resolved;
 }
 

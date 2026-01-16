@@ -1,13 +1,11 @@
-import type { ReactNode } from 'react';
-
+import { ReactNode } from 'react';
 import { cookies } from 'next/headers';
 
-import { AppSidebar } from '@/app/(private)/(dashboard)/_components/sidebar/app-sidebar';
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
-
 import { LayoutControls } from './(dashboard)/_components/sidebar/layout-controls';
 import { CurrentUserStoreProvider } from '@/stores/current-user/current-user-provider';
+import { SidebarInset, SidebarTrigger, SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/app/(private)/(dashboard)/_components/sidebar/app-sidebar';
 
 export default async function Layout({ children }: Readonly<{ children: ReactNode }>) {
   const cookieStore = await cookies();

@@ -1,23 +1,23 @@
 'use client';
 
-import { Ellipsis, Folder, Forward, type LucideIcon, Trash2 } from 'lucide-react';
+import { Trash2, Folder, Forward, Ellipsis, LucideIcon } from 'lucide-react';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
+  useSidebar,
   SidebarMenu,
+  SidebarGroup,
+  SidebarMenuItem,
   SidebarMenuAction,
   SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
+  SidebarGroupLabel,
 } from '@/components/ui/sidebar';
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 
 export function NavDocuments({
   items,

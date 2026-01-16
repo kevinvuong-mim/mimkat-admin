@@ -1,23 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-
-import { Command, ChartBar, LayoutDashboard } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
+import { Command, ChartBar, LayoutDashboard } from 'lucide-react';
 
 import {
   Sidebar,
-  SidebarContent,
+  SidebarMenu,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
+  SidebarContent,
   SidebarMenuItem,
+  SidebarMenuButton,
 } from '@/components/ui/sidebar';
-import { usePreferencesStore } from '@/stores/preferences/preferences-provider';
-
 import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
+import { usePreferencesStore } from '@/stores/preferences/preferences-provider';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { sidebarVariant, sidebarCollapsible } = usePreferencesStore(

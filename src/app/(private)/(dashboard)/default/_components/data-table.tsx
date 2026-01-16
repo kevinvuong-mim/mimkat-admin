@@ -1,30 +1,27 @@
 'use client';
-'use no memo';
 
-import * as React from 'react';
-
-import { Plus } from 'lucide-react';
 import type { z } from 'zod';
+import * as React from 'react';
+import { Plus } from 'lucide-react';
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectTrigger,
 } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { dashboardColumns } from './columns';
+import { Label } from '@/components/ui/label';
+import type { sectionSchema } from './schema';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { useDataTableInstance } from '@/hooks/use-data-table-instance';
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { withDndColumn } from '../../../../../components/data-table/table-utils';
 import { DataTable as DataTableNew } from '../../../../../components/data-table/data-table';
 import { DataTablePagination } from '../../../../../components/data-table/data-table-pagination';
 import { DataTableViewOptions } from '../../../../../components/data-table/data-table-view-options';
-import { withDndColumn } from '../../../../../components/data-table/table-utils';
-import { dashboardColumns } from './columns';
-import type { sectionSchema } from './schema';
 
 export function DataTable({ data: initialData }: { data: z.infer<typeof sectionSchema>[] }) {
   const [data, setData] = React.useState(() => initialData);

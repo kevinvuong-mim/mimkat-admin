@@ -1,5 +1,4 @@
 'use client';
-'use no memo';
 
 import { Download } from 'lucide-react';
 

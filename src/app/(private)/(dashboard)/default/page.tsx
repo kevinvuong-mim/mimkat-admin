@@ -1,7 +1,7 @@
-import { ChartAreaInteractive } from './_components/chart-area-interactive';
 import data from './_components/data.json';
 import { DataTable } from './_components/data-table';
 import { SectionCards } from './_components/section-cards';
+import { ChartAreaInteractive } from './_components/chart-area-interactive';
 
 export default function Page() {
   return (

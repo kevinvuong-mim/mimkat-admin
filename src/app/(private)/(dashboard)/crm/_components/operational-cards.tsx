@@ -1,27 +1,26 @@
 'use client';
 
 import { Clock } from 'lucide-react';
-import { Funnel, FunnelChart, LabelList } from 'recharts';
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { ChartContainer } from '@/components/ui/chart';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Progress } from '@/components/ui/progress';
-import { cn } from '@/lib/utils';
+import { Funnel, LabelList, FunnelChart } from 'recharts';
 
 import {
   actionItems,
   regionSalesData,
-  salesPipelineChartConfig,
   salesPipelineChartData,
+  salesPipelineChartConfig,
 } from './crm.config';
+import {
+  Card,
+  CardTitle,
+  CardFooter,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Progress } from '@/components/ui/progress';
+import { ChartContainer } from '@/components/ui/chart';
 
 export function OperationalCards() {
   const totalSales = regionSalesData.reduce((sum, region) => sum + region.sales, 0);

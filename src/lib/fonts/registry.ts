@@ -1,16 +1,16 @@
 import {
-  DM_Sans,
-  Gabriela,
   Geist,
+  Inter,
+  Outfit,
+  Nunito,
+  Roboto,
+  DM_Sans,
+  Poppins,
+  Manrope,
+  Gabriela,
   Geist_Mono,
   Great_Vibes,
-  Inter,
-  Manrope,
-  Nunito,
-  Outfit,
   Plus_Jakarta_Sans,
-  Poppins,
-  Roboto,
 } from 'next/font/google';
 
 const inter = Inter({

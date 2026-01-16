@@ -1,23 +1,23 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { z } from 'zod';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { Button } from '@/components/ui/button';
 import {
   Form,
-  FormControl,
   FormField,
-  FormItem,
   FormLabel,
+  FormItem,
+  FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import { useMutation } from '@tanstack/react-query';
-import { Input } from '@/components/ui/input';
 import { register } from '@/services/auth';
 import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useMutation } from '@tanstack/react-query';
 
 const FormSchema = z
   .object({

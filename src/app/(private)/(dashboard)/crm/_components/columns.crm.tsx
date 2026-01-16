@@ -1,13 +1,12 @@
-import type { ColumnDef } from '@tanstack/react-table';
+import z from 'zod';
 import { EllipsisVertical } from 'lucide-react';
-import type z from 'zod';
+import { ColumnDef } from '@tanstack/react-table';
 
-import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import { recentLeadSchema } from './schema';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-
-import type { recentLeadSchema } from './schema';
+import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 
 export const recentLeadsColumns: ColumnDef<z.infer<typeof recentLeadSchema>>[] = [
   {

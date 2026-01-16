@@ -1,25 +1,24 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 
-import { DataTable } from '@/components/data-table/data-table';
-import { DataTablePagination } from '@/components/data-table/data-table-pagination';
-import { DataTableViewOptions } from '@/components/data-table/data-table-view-options';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import {
   Card,
+  CardTitle,
   CardAction,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
-import { useDataTableInstance } from '@/hooks/use-data-table-instance';
+import { Button } from '@/components/ui/button';
 import { getSessions } from '@/services/sessions';
-
+import { Skeleton } from '@/components/ui/skeleton';
 import { sessionsColumns } from './_components/columns';
+import { DataTable } from '@/components/data-table/data-table';
+import { useDataTableInstance } from '@/hooks/use-data-table-instance';
+import { DataTablePagination } from '@/components/data-table/data-table-pagination';
+import { DataTableViewOptions } from '@/components/data-table/data-table-view-options';
 
 export default function SessionsPage() {
   const { data: sessionsData, isLoading } = useQuery({

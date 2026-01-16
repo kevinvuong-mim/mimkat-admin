@@ -2,31 +2,30 @@
 
 import {
   Bar,
-  BarChart,
-  CartesianGrid,
-  Label,
-  LabelList,
   Pie,
-  PieChart,
+  Label,
   XAxis,
   YAxis,
+  BarChart,
+  PieChart,
+  LabelList,
+  CartesianGrid,
 } from 'recharts';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-  ChartContainer,
+  leadsBySourceChartData,
+  projectRevenueChartData,
+  leadsBySourceChartConfig,
+  projectRevenueChartConfig,
+} from './crm.config';
+import {
   ChartLegend,
   ChartTooltip,
+  ChartContainer,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-
-import {
-  leadsBySourceChartConfig,
-  leadsBySourceChartData,
-  projectRevenueChartConfig,
-  projectRevenueChartData,
-} from './crm.config';
+import { Button } from '@/components/ui/button';
+import { Card, CardTitle, CardHeader, CardFooter, CardContent } from '@/components/ui/card';
 
 export function InsightCards() {
   const totalLeads = leadsBySourceChartData.reduce((acc, curr) => acc + curr.leads, 0);

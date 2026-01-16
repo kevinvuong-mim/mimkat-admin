@@ -1,9 +1,8 @@
 'use client';
 
-import { createContext, useContext } from 'react';
-
+import { StoreApi, useStore } from 'zustand';
 import { useQuery } from '@tanstack/react-query';
-import { type StoreApi, useStore } from 'zustand';
+import { useContext, createContext } from 'react';
 
 import { getMe } from '@/services/users';
 import { CurrentUserState } from '@/types';

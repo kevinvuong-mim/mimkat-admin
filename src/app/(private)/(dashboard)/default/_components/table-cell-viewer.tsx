@@ -1,37 +1,36 @@
-import { TrendingUp } from 'lucide-react';
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 import type { z } from 'zod';
+import { TrendingUp } from 'lucide-react';
+import { Area, XAxis, AreaChart, CartesianGrid } from 'recharts';
 
-import { Button } from '@/components/ui/button';
 import {
-  type ChartConfig,
-  ChartContainer,
+  ChartConfig,
   ChartTooltip,
+  ChartContainer,
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import {
+  Select,
+  SelectItem,
+  SelectValue,
+  SelectContent,
+  SelectTrigger,
+} from '@/components/ui/select';
+import {
   Drawer,
+  DrawerTitle,
   DrawerClose,
-  DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
+  DrawerContent,
+  DrawerDescription,
 } from '@/components/ui/drawer';
+import { sectionSchema } from './schema';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
-
-import type { sectionSchema } from './schema';
+import { Separator } from '@/components/ui/separator';
 
 const chartData = [
   { month: 'January', desktop: 186, mobile: 80 },

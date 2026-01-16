@@ -2,36 +2,36 @@
 
 import { Settings } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectTrigger,
 } from '@/components/ui/select';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { type FontKey, fontOptions } from '@/lib/fonts/registry';
 import type {
-  ContentLayout,
   NavbarStyle,
-  SidebarCollapsible,
+  ContentLayout,
   SidebarVariant,
+  SidebarCollapsible,
 } from '@/lib/preferences/layout';
 import {
-  applyContentLayout,
   applyFont,
   applyNavbarStyle,
-  applySidebarCollapsible,
+  applyContentLayout,
   applySidebarVariant,
+  applySidebarCollapsible,
 } from '@/lib/preferences/layout-utils';
-import { PREFERENCE_DEFAULTS } from '@/lib/preferences/preferences-config';
-import { persistPreference } from '@/lib/preferences/preferences-storage';
-import { THEME_PRESET_OPTIONS, type ThemeMode, type ThemePreset } from '@/lib/preferences/theme';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { FontKey, fontOptions } from '@/lib/fonts/registry';
 import { applyThemePreset } from '@/lib/preferences/theme-utils';
+import { persistPreference } from '@/lib/preferences/preferences-storage';
+import { PREFERENCE_DEFAULTS } from '@/lib/preferences/preferences-config';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { usePreferencesStore } from '@/stores/preferences/preferences-provider';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { ThemeMode, ThemePreset, THEME_PRESET_OPTIONS } from '@/lib/preferences/theme';
 
 export function LayoutControls() {
   const themeMode = usePreferencesStore((s) => s.themeMode);

@@ -1,22 +1,22 @@
-import { type LucideIcon } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 
 export interface NavSubItem {
-  title: string;
   url: string;
+  title: string;
+  isNew?: boolean;
+  newTab?: boolean;
   icon?: LucideIcon;
   comingSoon?: boolean;
-  newTab?: boolean;
-  isNew?: boolean;
 }
 
 export interface NavMainItem {
-  title: string;
   url: string;
-  icon?: LucideIcon;
-  subItems?: NavSubItem[];
-  comingSoon?: boolean;
-  newTab?: boolean;
+  title: string;
   isNew?: boolean;
+  newTab?: boolean;
+  icon?: LucideIcon;
+  comingSoon?: boolean;
+  subItems?: NavSubItem[];
 }
 
 export interface NavGroup {

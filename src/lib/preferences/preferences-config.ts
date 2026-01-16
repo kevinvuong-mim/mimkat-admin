@@ -65,12 +65,12 @@ type PreferencePersistenceConfig = {
  * Default preference values on first load.
  */
 export const PREFERENCE_DEFAULTS: PreferenceValueMap = {
-  theme_mode: 'light',
-  theme_preset: 'default',
   font: 'inter',
-  content_layout: 'centered',
+  theme_mode: 'light',
   navbar_style: 'sticky',
+  theme_preset: 'default',
   sidebar_variant: 'inset',
+  content_layout: 'centered',
   sidebar_collapsible: 'icon',
 };
 
@@ -79,11 +79,11 @@ export const PREFERENCE_DEFAULTS: PreferenceValueMap = {
  * You can change these per-key.
  */
 export const PREFERENCE_PERSISTENCE: PreferencePersistenceConfig = {
-  theme_mode: 'client-cookie',
-  theme_preset: 'client-cookie',
   font: 'client-cookie',
-  content_layout: 'client-cookie',
+  theme_mode: 'client-cookie',
   navbar_style: 'client-cookie',
+  theme_preset: 'client-cookie',
+  content_layout: 'client-cookie',
   sidebar_variant: 'client-cookie', // layout-critical → cannot be "localStorage"
   sidebar_collapsible: 'client-cookie', // layout-critical → cannot be "localStorage"
 };

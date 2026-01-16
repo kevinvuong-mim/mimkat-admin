@@ -1,44 +1,43 @@
-import type { ReactNode } from 'react';
-
-import type { Metadata } from 'next';
-
-import { Toaster } from '@/components/ui/sonner';
-import { fontVars } from '@/lib/fonts/registry';
-import { PREFERENCE_DEFAULTS } from '@/lib/preferences/preferences-config';
-import { ThemeBootScript } from '@/scripts/theme-boot';
-import { QueryProvider } from '@/providers/query-provider';
-import { PreferencesStoreProvider } from '@/stores/preferences/preferences-provider';
+import { Metadata } from 'next';
+import { ReactNode } from 'react';
 
 import './globals.css';
+import { fontVars } from '@/lib/fonts/registry';
+import { Toaster } from '@/components/ui/sonner';
+import { ThemeBootScript } from '@/scripts/theme-boot';
+import { QueryProvider } from '@/providers/query-provider';
+import { PREFERENCE_DEFAULTS } from '@/lib/preferences/preferences-config';
+import { PreferencesStoreProvider } from '@/stores/preferences/preferences-provider';
 
 export const metadata: Metadata = {
   title: 'Mimkat Admin',
   icons: { icon: '/images/logo.png' },
   description:
-    'Mimkat Admin is a modern, open-source dashboard starter template built with Next.js 16, Tailwind CSS v4, and shadcn/ui. Perfect for SaaS apps, admin panels, and internal tools—fully customizable and production-ready.',
+    'Mimkat Admin is a modern, open-source dashboard starter template built with Next.js 16, Tailwind CSS v4, and shadcn/ui.',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   const {
+    font,
     theme_mode,
+    navbar_style,
     theme_preset,
     content_layout,
-    navbar_style,
     sidebar_variant,
     sidebar_collapsible,
-    font,
   } = PREFERENCE_DEFAULTS;
+
   return (
     <html
       lang="en"
-      data-theme-mode={theme_mode}
-      data-theme-preset={theme_preset}
-      data-content-layout={content_layout}
-      data-navbar-style={navbar_style}
-      data-sidebar-variant={sidebar_variant}
-      data-sidebar-collapsible={sidebar_collapsible}
       data-font={font}
       suppressHydrationWarning
+      data-theme-mode={theme_mode}
+      data-navbar-style={navbar_style}
+      data-theme-preset={theme_preset}
+      data-content-layout={content_layout}
+      data-sidebar-variant={sidebar_variant}
+      data-sidebar-collapsible={sidebar_collapsible}
     >
       <head>
         {/* Applies theme and layout preferences on load to avoid flicker and unnecessary server rerenders. */}
@@ -46,11 +45,11 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       </head>
       <body className={`${fontVars} min-h-screen antialiased`}>
         <PreferencesStoreProvider
+          font={font}
           themeMode={theme_mode}
+          navbarStyle={navbar_style}
           themePreset={theme_preset}
           contentLayout={content_layout}
-          navbarStyle={navbar_style}
-          font={font}
         >
           <QueryProvider>{children}</QueryProvider>
           <Toaster position="top-center" />

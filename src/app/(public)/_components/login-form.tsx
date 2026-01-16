@@ -1,23 +1,23 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { z } from 'zod';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { Button } from '@/components/ui/button';
 import {
   Form,
-  FormControl,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
+  FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import { useSearchParams } from 'next/navigation';
-import { Input } from '@/components/ui/input';
 import { login } from '@/services/auth';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useSearchParams } from 'next/navigation';
 
 const FormSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),

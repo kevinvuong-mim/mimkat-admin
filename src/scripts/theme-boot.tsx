@@ -1,30 +1,22 @@
-/**
- * Boot script that reads user preference values (theme mode, theme preset,
- * content layout, navbar style) from cookies or localStorage based on the
- * configured persistence mode.
- *
- * Runs early in <head> to apply the correct data attributes before hydration,
- * preventing layout or theme flicker and keeping RootLayout fully static.
- */
 import { PREFERENCE_DEFAULTS, PREFERENCE_PERSISTENCE } from '@/lib/preferences/preferences-config';
 
 export function ThemeBootScript() {
   const persistence = JSON.stringify({
-    theme_mode: PREFERENCE_PERSISTENCE.theme_mode,
-    theme_preset: PREFERENCE_PERSISTENCE.theme_preset,
     font: PREFERENCE_PERSISTENCE.font,
-    content_layout: PREFERENCE_PERSISTENCE.content_layout,
+    theme_mode: PREFERENCE_PERSISTENCE.theme_mode,
     navbar_style: PREFERENCE_PERSISTENCE.navbar_style,
+    theme_preset: PREFERENCE_PERSISTENCE.theme_preset,
+    content_layout: PREFERENCE_PERSISTENCE.content_layout,
     sidebar_variant: PREFERENCE_PERSISTENCE.sidebar_variant,
     sidebar_collapsible: PREFERENCE_PERSISTENCE.sidebar_collapsible,
   });
 
   const defaults = JSON.stringify({
-    theme_mode: PREFERENCE_DEFAULTS.theme_mode,
-    theme_preset: PREFERENCE_DEFAULTS.theme_preset,
     font: PREFERENCE_DEFAULTS.font,
-    content_layout: PREFERENCE_DEFAULTS.content_layout,
+    theme_mode: PREFERENCE_DEFAULTS.theme_mode,
     navbar_style: PREFERENCE_DEFAULTS.navbar_style,
+    theme_preset: PREFERENCE_DEFAULTS.theme_preset,
+    content_layout: PREFERENCE_DEFAULTS.content_layout,
     sidebar_variant: PREFERENCE_DEFAULTS.sidebar_variant,
     sidebar_collapsible: PREFERENCE_DEFAULTS.sidebar_collapsible,
   });

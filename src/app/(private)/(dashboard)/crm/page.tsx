@@ -1,7 +1,7 @@
-import { InsightCards } from './_components/insight-cards';
-import { OperationalCards } from './_components/operational-cards';
-import { OverviewCards } from './_components/overview-cards';
 import { TableCards } from './_components/table-cards';
+import { InsightCards } from './_components/insight-cards';
+import { OverviewCards } from './_components/overview-cards';
+import { OperationalCards } from './_components/operational-cards';
 
 export default function Page() {
   return (

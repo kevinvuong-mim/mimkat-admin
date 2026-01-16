@@ -1,5 +1,4 @@
 'use client';
-'use no memo';
 
 import type { Table } from '@tanstack/react-table';
 import { Settings2 } from 'lucide-react';

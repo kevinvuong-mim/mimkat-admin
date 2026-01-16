@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
-
 import { Command } from 'lucide-react';
 
 import { LoginForm } from '../_components/login-form';

@@ -1,31 +1,30 @@
-import type { ColumnDef } from '@tanstack/react-table';
-import { CircleCheck, EllipsisVertical, Loader } from 'lucide-react';
+import { z } from 'zod';
 import { toast } from 'sonner';
-import type { z } from 'zod';
+import { ColumnDef } from '@tanstack/react-table';
+import { Loader, CircleCheck, EllipsisVertical } from 'lucide-react';
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectTrigger,
 } from '@/components/ui/select';
-
-import { DataTableColumnHeader } from '../../../../../components/data-table/data-table-column-header';
-import type { sectionSchema } from './schema';
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
+import { sectionSchema } from './schema';
+import { Badge } from '@/components/ui/badge';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { TableCellViewer } from './table-cell-viewer';
+import { DataTableColumnHeader } from '../../../../../components/data-table/data-table-column-header';
 
 export const dashboardColumns: ColumnDef<z.infer<typeof sectionSchema>>[] = [
   {

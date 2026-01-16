@@ -1,11 +1,11 @@
-import type { ColumnDef } from '@tanstack/react-table';
-import { Monitor, Smartphone, Tablet, EllipsisVertical } from 'lucide-react';
+import { ColumnDef } from '@tanstack/react-table';
+import { Tablet, Monitor, Smartphone, EllipsisVertical } from 'lucide-react';
 
-import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import { Session } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import type { Session } from '@/types';
 import { Checkbox } from '@/components/ui/checkbox';
+import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 
 const getDeviceIcon = (deviceType: string) => {
   switch (deviceType.toLowerCase()) {

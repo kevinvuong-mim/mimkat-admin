@@ -5,23 +5,22 @@ import { BadgeDollarSign, Wallet } from 'lucide-react';
 import { Area, AreaChart, Bar, BarChart, Line, LineChart, XAxis } from 'recharts';
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-
-import {
-  leadsChartConfig,
   leadsChartData,
-  proposalsChartConfig,
+  leadsChartConfig,
+  revenueChartData,
   proposalsChartData,
   revenueChartConfig,
-  revenueChartData,
+  proposalsChartConfig,
 } from './crm.config';
+import {
+  Card,
+  CardTitle,
+  CardFooter,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from '@/components/ui/card';
+import { ChartTooltip, ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 
 const lastMonth = format(subMonths(new Date(), 1), 'LLLL');
 
