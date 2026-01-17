@@ -2,22 +2,21 @@
 
 import { Download } from 'lucide-react';
 
-import { DataTable } from '@/components/data-table/data-table';
-import { DataTablePagination } from '@/components/data-table/data-table-pagination';
-import { DataTableViewOptions } from '@/components/data-table/data-table-view-options';
-import { Button } from '@/components/ui/button';
 import {
   Card,
+  CardTitle,
   CardAction,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
-import { useDataTableInstance } from '@/hooks/use-data-table-instance';
-
-import { recentLeadsColumns } from './columns.crm';
 import { recentLeadsData } from './crm.config';
+import { Button } from '@/components/ui/button';
+import { recentLeadsColumns } from './columns.crm';
+import { DataTable } from '@/components/data-table/data-table';
+import { useDataTableInstance } from '@/hooks/use-data-table-instance';
+import { DataTablePagination } from '@/components/data-table/data-table-pagination';
+import { DataTableViewOptions } from '@/components/data-table/data-table-view-options';
 
 export function TableCards() {
   const table = useDataTableInstance({

@@ -1,29 +1,27 @@
 import * as React from 'react';
-
 import {
-  closestCenter,
+  useSensor,
   DndContext,
-  type DragEndEvent,
-  KeyboardSensor,
+  useSensors,
   MouseSensor,
   TouchSensor,
+  closestCenter,
+  KeyboardSensor,
+  type DragEndEvent,
   type UniqueIdentifier,
-  useSensor,
-  useSensors,
 } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { type ColumnDef, flexRender, type Table as TanStackTable } from '@tanstack/react-table';
+import { flexRender, type ColumnDef, type Table as TanStackTable } from '@tanstack/react-table';
 
 import {
   Table,
-  TableBody,
+  TableRow,
   TableCell,
+  TableBody,
   TableHead,
   TableHeader,
-  TableRow,
 } from '@/components/ui/table';
-
 import { DraggableRow } from './draggable-row';
 
 interface DataTableProps<TData, TValue> {

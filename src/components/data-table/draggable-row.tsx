@@ -1,8 +1,8 @@
-import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { flexRender, type Row } from '@tanstack/react-table';
+import { useSortable } from '@dnd-kit/sortable';
+import { type Row, flexRender } from '@tanstack/react-table';
 
-import { TableCell, TableRow } from '@/components/ui/table';
+import { TableRow, TableCell } from '@/components/ui/table';
 
 export function DraggableRow<TData>({ row }: { row: Row<TData> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({

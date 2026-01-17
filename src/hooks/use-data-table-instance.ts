@@ -1,35 +1,35 @@
 import * as React from 'react';
 
 import {
+  useReactTable,
   type ColumnDef,
-  type ColumnFiltersState,
   getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   type SortingState,
-  useReactTable,
+  getFacetedRowModel,
+  getFilteredRowModel,
   type VisibilityState,
+  getPaginationRowModel,
+  getFacetedUniqueValues,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 
 type UseDataTableInstanceProps<TData, TValue> = {
   data: TData[];
-  columns: ColumnDef<TData, TValue>[];
-  enableRowSelection?: boolean;
-  defaultPageIndex?: number;
   defaultPageSize?: number;
+  defaultPageIndex?: number;
+  enableRowSelection?: boolean;
+  columns: ColumnDef<TData, TValue>[];
   getRowId?: (row: TData, index: number) => string;
 };
 
 export function useDataTableInstance<TData, TValue>({
   data,
   columns,
-  enableRowSelection = true,
-  defaultPageIndex,
-  defaultPageSize,
   getRowId,
+  defaultPageSize,
+  defaultPageIndex,
+  enableRowSelection = true,
 }: UseDataTableInstanceProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -45,24 +45,24 @@ export function useDataTableInstance<TData, TValue>({
     columns,
     state: {
       sorting,
-      columnVisibility,
+      pagination,
       rowSelection,
       columnFilters,
-      pagination,
+      columnVisibility,
     },
     enableRowSelection,
-    getRowId: getRowId ?? ((row) => (row as any).id.toString()),
-    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    onRowSelectionChange: setRowSelection,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
     getFacetedRowModel: getFacetedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    getPaginationRowModel: getPaginationRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    getRowId: getRowId ?? ((row) => (row as any).id.toString()),
   });
 
   return table;

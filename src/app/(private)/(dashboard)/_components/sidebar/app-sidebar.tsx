@@ -47,14 +47,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               label: 'Dashboards',
               items: [
                 {
+                  url: '/default',
                   title: 'Default',
                   icon: LayoutDashboard,
-                  url: '/default',
                 },
                 {
+                  url: '/crm',
                   title: 'CRM',
                   icon: ChartBar,
-                  url: '/crm',
                 },
               ],
             },

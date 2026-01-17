@@ -22,14 +22,14 @@ import { DataTableViewOptions } from '@/components/data-table/data-table-view-op
 
 export default function SessionsPage() {
   const { data: sessionsData, isLoading } = useQuery({
-    queryKey: ['sessions'],
     queryFn: getSessions,
+    queryKey: ['sessions'],
   });
 
   const table = useDataTableInstance({
-    data: sessionsData?.items || [],
     columns: sessionsColumns,
     getRowId: (row) => row.id,
+    data: sessionsData?.items || [],
   });
 
   return (

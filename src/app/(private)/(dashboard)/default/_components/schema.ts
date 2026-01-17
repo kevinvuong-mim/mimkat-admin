@@ -2,10 +2,10 @@ import { z } from 'zod';
 
 export const sectionSchema = z.object({
   id: z.number(),
-  header: z.string(),
   type: z.string(),
+  limit: z.string(),
+  header: z.string(),
   status: z.string(),
   target: z.string(),
-  limit: z.string(),
   reviewer: z.string(),
 });
