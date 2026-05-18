@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 import './globals.css';
+import { I18nProvider } from '@/context/i18n';
 import { fontVars } from '@/lib/fonts/registry';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeBootScript } from '@/scripts/theme-boot';
@@ -51,7 +52,9 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           themePreset={theme_preset}
           contentLayout={content_layout}
         >
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <I18nProvider>{children}</I18nProvider>
+          </QueryProvider>
           <Toaster position="top-center" />
         </PreferencesStoreProvider>
       </body>

@@ -22,6 +22,7 @@ import {
   applySidebarVariant,
   applySidebarCollapsible,
 } from '@/lib/preferences/layout-utils';
+import { useI18n } from '@/context/i18n';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { FontKey, fontOptions } from '@/lib/fonts/registry';
@@ -34,6 +35,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { ThemeMode, ThemePreset, THEME_PRESET_OPTIONS } from '@/lib/preferences/theme';
 
 export function LayoutControls() {
+  const { t, locale, setLocale } = useI18n();
   const themeMode = usePreferencesStore((s) => s.themeMode);
   const resolvedThemeMode = usePreferencesStore((s) => s.resolvedThemeMode);
   const setThemeMode = usePreferencesStore((s) => s.setThemeMode);
@@ -260,6 +262,24 @@ export function LayoutControls() {
                 </ToggleGroupItem>
                 <ToggleGroupItem value="offcanvas" aria-label="Toggle offcanvas">
                   OffCanvas
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-xs font-medium">{t.home.language}</Label>
+              <ToggleGroup
+                size="sm"
+                variant="outline"
+                type="single"
+                value={locale}
+                onValueChange={(value) => setLocale(value as 'en' | 'vi')}
+              >
+                <ToggleGroupItem value="en" aria-label="Toggle English">
+                  {t.home.english}
+                </ToggleGroupItem>
+                <ToggleGroupItem value="vi" aria-label="Toggle Vietnamese">
+                  {t.home.vietnamese}
                 </ToggleGroupItem>
               </ToggleGroup>
             </div>
