@@ -273,7 +273,11 @@ export function LayoutControls() {
                 variant="outline"
                 type="single"
                 value={locale}
-                onValueChange={(value) => setLocale(value as 'en' | 'vi')}
+                onValueChange={(value) => {
+                  if (!value) return;
+
+                  setLocale(value as 'en' | 'vi');
+                }}
               >
                 <ToggleGroupItem value="en" aria-label="Toggle English">
                   {t.home.english}
