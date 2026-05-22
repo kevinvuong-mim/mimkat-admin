@@ -123,10 +123,10 @@ export function LayoutControls() {
             <p className="text-muted-foreground text-xs">
               Customize your dashboard layout preferences.
             </p>
-            <p className="text-muted-foreground text-xs font-medium">
+            {/* <p className="text-muted-foreground text-xs font-medium">
               *Preferences use cookies by default. You can switch between cookies, localStorage, or
               no storage in code.
-            </p>
+            </p> */}
           </div>
           <div className="space-y-3 **:data-[slot=toggle-group]:w-full **:data-[slot=toggle-group-item]:flex-1 **:data-[slot=toggle-group-item]:text-xs">
             <div className="space-y-1">
