@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useShallow } from 'zustand/react/shallow';
-import { Command, ChartBar, LayoutDashboard } from 'lucide-react';
+import { Command, ChartBar, MessageCircle, LayoutDashboard } from 'lucide-react';
 
 import {
   Sidebar,
@@ -55,6 +55,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   url: '/crm',
                   title: 'CRM',
                   icon: ChartBar,
+                },
+                {
+                  url: '/chat',
+                  title: 'Chat',
+                  icon: MessageCircle,
                 },
               ],
             },

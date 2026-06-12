@@ -1,6 +1,13 @@
 import { apiClient } from '@/lib/api-client';
 import { handleApiError } from '@/lib/error-handler';
-import { CurrentUser, GetMeRequest, GetMeResponse } from '@/types';
+import {
+  CurrentUser,
+  GetMeRequest,
+  GetMeResponse,
+  LookupUserByEmailRequest,
+  LookupUserByEmailResponse,
+  User,
+} from '@/types';
 
 const getMe = async (_data?: GetMeRequest): Promise<CurrentUser> => {
   try {
@@ -14,4 +21,16 @@ const getMe = async (_data?: GetMeRequest): Promise<CurrentUser> => {
   }
 };
 
-export { getMe };
+const lookupUserByEmail = async (data: LookupUserByEmailRequest): Promise<User> => {
+  try {
+    const response: LookupUserByEmailResponse = await apiClient.get('/users/lookup', {
+      params: { email: data.email.trim() },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw handleApiError(error);
+  }
+};
+
+export { getMe, lookupUserByEmail };
