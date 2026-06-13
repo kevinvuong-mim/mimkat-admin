@@ -1,19 +1,39 @@
 'use client';
 
 import type { Socket } from 'socket.io-client';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRef, useState, useEffect, useCallback } from 'react';
+import { useQueryClient, type InfiniteData } from '@tanstack/react-query';
 
 import { chatQueryKeys } from '@/lib/chat-query-keys';
-import type { ChatMessage, Conversation } from '@/types/api/chat';
 import { createChatSocket, CHAT_SOCKET_EVENTS } from '@/lib/chat-socket';
+import type { ChatMessage, Conversation, ConversationsPage, MessagesPage } from '@/types/api/chat';
 
 interface UseChatOptions {
   enabled?: boolean;
+  currentUserId?: string;
+  onConversationDeleted?: (conversationId: string) => void;
+}
+
+function moveConversationToTop(
+  pages: ConversationsPage[],
+  conversation: Conversation,
+): ConversationsPage[] {
+  const filtered = pages.map((page) => ({
+    ...page,
+    items: page.items.filter((item) => item.id !== conversation.id),
+  }));
+
+  if (!filtered.length) {
+    return [{ items: [conversation], nextCursor: null }];
+  }
+
+  return filtered.map((page, index) =>
+    index === 0 ? { ...page, items: [conversation, ...page.items] } : page,
+  );
 }
 
 export function useChat(options: UseChatOptions = {}) {
-  const { enabled = true } = options;
+  const { enabled = true, currentUserId, onConversationDeleted } = options;
   const queryClient = useQueryClient();
   const socketRef = useRef<Socket | null>(null);
   const listenersBoundRef = useRef(false);
@@ -24,38 +44,58 @@ export function useChat(options: UseChatOptions = {}) {
 
   const upsertMessageInCache = useCallback(
     (message: ChatMessage) => {
-      queryClient.setQueryData<{ items: ChatMessage[]; nextCursor: string | null }>(
+      queryClient.setQueryData<InfiniteData<MessagesPage>>(
         chatQueryKeys.messages(message.conversationId),
         (old) => {
-          if (!old) return old;
-          const exists = old.items.some((m) => m.id === message.id);
-          if (exists) return old;
+          const pages = old?.pages ?? [{ items: [], nextCursor: null }];
+          const pageParams = old?.pageParams ?? [undefined];
+          const firstPage = pages[0] ?? { items: [], nextCursor: null };
+
+          if (firstPage.items.some((item) => item.id === message.id)) {
+            return old ?? { pages, pageParams };
+          }
+
           return {
-            ...old,
-            items: [message, ...old.items],
+            pageParams,
+            pages: [{ ...firstPage, items: [message, ...firstPage.items] }, ...pages.slice(1)],
           };
         },
       );
 
-      queryClient.setQueryData<Conversation[]>(chatQueryKeys.conversations(), (old) => {
-        if (!old) return old;
-        return old
-          .map((conversation) => {
-            if (conversation.id !== message.conversationId) return conversation;
-            return {
-              ...conversation,
-              updatedAt: message.createdAt,
-              lastMessage: {
-                id: message.id,
-                content: message.content,
-                type: message.type,
-                createdAt: message.createdAt,
-                sender: message.sender,
-              },
-            };
-          })
-          .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-      });
+      queryClient.setQueryData<InfiniteData<ConversationsPage>>(
+        chatQueryKeys.conversations(),
+        (old) => {
+          if (!old) return old;
+
+          let updatedConversation: Conversation | null = null;
+          const pages = old.pages.map((page) => ({
+            ...page,
+            items: page.items.map((conversation) => {
+              if (conversation.id !== message.conversationId) return conversation;
+
+              updatedConversation = {
+                ...conversation,
+                updatedAt: message.createdAt,
+                lastMessage: {
+                  id: message.id,
+                  content: message.content,
+                  type: message.type,
+                  createdAt: message.createdAt,
+                  sender: message.sender,
+                },
+              };
+              return updatedConversation;
+            }),
+          }));
+
+          if (!updatedConversation) return old;
+
+          return {
+            ...old,
+            pages: moveConversationToTop(pages, updatedConversation),
+          };
+        },
+      );
     },
     [queryClient],
   );
@@ -93,21 +133,55 @@ export function useChat(options: UseChatOptions = {}) {
     });
 
     socket.on(CHAT_SOCKET_EVENTS.CONVERSATION_UPDATED, (conversation: Conversation) => {
-      queryClient.setQueryData(chatQueryKeys.conversation(conversation.id), conversation);
-      queryClient.setQueryData<Conversation[]>(chatQueryKeys.conversations(), (old) => {
-        if (!old) return [conversation];
-        const index = old.findIndex((c) => c.id === conversation.id);
-        if (index === -1) return [conversation, ...old];
-        const next = [...old];
-        next[index] = conversation;
-        return next.sort(
-          (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-        );
-      });
+      queryClient.setQueryData<InfiniteData<ConversationsPage>>(
+        chatQueryKeys.conversations(),
+        (old) => {
+          if (!old) {
+            return {
+              pageParams: [undefined],
+              pages: [{ items: [conversation], nextCursor: null }],
+            };
+          }
+
+          return {
+            ...old,
+            pages: moveConversationToTop(
+              old.pages.map((page) => ({
+                ...page,
+                items: page.items.filter((item) => item.id !== conversation.id),
+              })),
+              conversation,
+            ),
+          };
+        },
+      );
     });
 
+    socket.on(
+      CHAT_SOCKET_EVENTS.CONVERSATION_DELETED,
+      ({ conversationId }: { conversationId: string }) => {
+        queryClient.setQueryData<InfiniteData<ConversationsPage>>(
+          chatQueryKeys.conversations(),
+          (old) => {
+            if (!old) return old;
+
+            return {
+              ...old,
+              pages: old.pages.map((page) => ({
+                ...page,
+                items: page.items.filter((item) => item.id !== conversationId),
+              })),
+            };
+          },
+        );
+
+        queryClient.removeQueries({ queryKey: chatQueryKeys.messages(conversationId) });
+        onConversationDeleted?.(conversationId);
+      },
+    );
+
     if (!socket.connected) socket.connect();
-  }, [enabled, queryClient, upsertMessageInCache]);
+  }, [enabled, onConversationDeleted, queryClient, upsertMessageInCache]);
 
   const disconnect = useCallback(() => {
     socketRef.current?.removeAllListeners();
@@ -146,6 +220,10 @@ export function useChat(options: UseChatOptions = {}) {
         throw new Error('Chat socket is not connected');
       }
 
+      if (!currentUserId) {
+        throw new Error('Current user is not available');
+      }
+
       const sendKey = `${conversationId}:${content}`;
       if (sendInFlightRef.current.has(sendKey)) {
         return Promise.reject(new Error('Message is already being sent'));
@@ -157,10 +235,10 @@ export function useChat(options: UseChatOptions = {}) {
         content,
         type: 'TEXT',
         conversationId,
-        senderId: 'me',
+        senderId: currentUserId,
         id: optimisticId,
         sender: {
-          id: 'me',
+          id: currentUserId,
           email: '',
           avatar: null,
           username: null,
@@ -170,12 +248,21 @@ export function useChat(options: UseChatOptions = {}) {
         updatedAt: new Date().toISOString(),
       };
 
-      queryClient.setQueryData<{ items: ChatMessage[]; nextCursor: string | null }>(
+      queryClient.setQueryData<InfiniteData<MessagesPage>>(
         chatQueryKeys.messages(conversationId),
-        (old) => ({
-          items: [optimisticMessage, ...(old?.items ?? [])],
-          nextCursor: old?.nextCursor ?? null,
-        }),
+        (old) => {
+          const pages = old?.pages ?? [{ items: [], nextCursor: null }];
+          const pageParams = old?.pageParams ?? [undefined];
+          const firstPage = pages[0] ?? { items: [], nextCursor: null };
+
+          return {
+            pageParams,
+            pages: [
+              { ...firstPage, items: [optimisticMessage, ...firstPage.items] },
+              ...pages.slice(1),
+            ],
+          };
+        },
       );
 
       return new Promise<ChatMessage>((resolve, reject) => {
@@ -193,21 +280,26 @@ export function useChat(options: UseChatOptions = {}) {
               return;
             }
 
-            queryClient.setQueryData<{ items: ChatMessage[]; nextCursor: string | null }>(
+            queryClient.setQueryData<InfiniteData<MessagesPage>>(
               chatQueryKeys.messages(conversationId),
               (old) => {
-                if (!old) return { items: [response.message!], nextCursor: null };
+                const pages = old?.pages ?? [{ items: [], nextCursor: null }];
+                const pageParams = old?.pageParams ?? [undefined];
+                const firstPage = pages[0] ?? { items: [], nextCursor: null };
+                const withoutOptimistic = firstPage.items.filter(
+                  (item) => item.id !== optimisticId,
+                );
+                const alreadyExists = withoutOptimistic.some(
+                  (item) => item.id === response.message!.id,
+                );
 
-                const withoutOptimistic = old.items.filter((m) => m.id !== optimisticId);
-                const alreadyExists = withoutOptimistic.some((m) => m.id === response.message!.id);
-                if (alreadyExists) {
-                  return { ...old, items: withoutOptimistic, nextCursor: old.nextCursor };
-                }
+                const nextFirstPage = alreadyExists
+                  ? { ...firstPage, items: withoutOptimistic }
+                  : { ...firstPage, items: [response.message!, ...withoutOptimistic] };
 
                 return {
-                  ...old,
-                  items: [response.message!, ...withoutOptimistic],
-                  nextCursor: old.nextCursor,
+                  pageParams,
+                  pages: [nextFirstPage, ...pages.slice(1)],
                 };
               },
             );
@@ -217,7 +309,7 @@ export function useChat(options: UseChatOptions = {}) {
         );
       });
     },
-    [queryClient],
+    [currentUserId, queryClient],
   );
 
   return {

@@ -19,4 +19,5 @@ export const CHAT_SOCKET_EVENTS = {
   LEAVE: 'chat:leave',
   NEW_MESSAGE: 'chat:new-message',
   CONVERSATION_UPDATED: 'chat:conversation-updated',
+  CONVERSATION_DELETED: 'chat:conversation-deleted',
 } as const;

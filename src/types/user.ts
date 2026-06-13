@@ -1,12 +1,3 @@
-interface User {
-  id: string;
-  email: string;
-  avatar?: string;
-  createdAt: string;
-  fullName?: string;
-  username?: string;
-}
-
 interface CurrentUser {
   id: string;
   email: string;
@@ -26,4 +17,4 @@ interface CurrentUserState {
   currentUser: undefined | CurrentUser;
 }
 
-export type { User, CurrentUser, CurrentUserState };
+export type { CurrentUser, CurrentUserState };

@@ -13,6 +13,7 @@ export interface ConversationParticipant {
   id: string;
   user: ChatUser;
   userId: string;
+  isAdmin: boolean;
   joinedAt: string;
 }
 
@@ -49,25 +50,27 @@ export interface MessagesPage {
   nextCursor: string | null;
 }
 
+export interface ConversationsPage {
+  items: Conversation[];
+  nextCursor: string | null;
+}
+
 export interface CreateDirectConversationRequest {
   participantEmail: string;
 }
 
 export interface CreateGroupConversationRequest {
   name: string;
-  avatar?: string;
   memberEmails: string[];
 }
 
 export interface UpdateConversationRequest {
   name?: string;
-  avatar?: string;
-  leave?: boolean;
   addMemberEmail?: string;
   removeMemberEmail?: string;
+  transferAdminEmail?: string;
 }
 
 export type GetMessagesResponse = import('./api-response').SuccessResponse<MessagesPage>;
-export type GetConversationResponse = import('./api-response').SuccessResponse<Conversation>;
 export type CreateConversationResponse = import('./api-response').SuccessResponse<Conversation>;
-export type GetConversationsResponse = import('./api-response').SuccessResponse<Conversation[]>;
+export type GetConversationsResponse = import('./api-response').SuccessResponse<ConversationsPage>;

@@ -1,8 +1,8 @@
 import {
-  Conversation,
   MessagesPage,
+  Conversation,
+  ConversationsPage,
   GetMessagesResponse,
-  GetConversationResponse,
   GetConversationsResponse,
   UpdateConversationRequest,
   CreateConversationResponse,
@@ -28,18 +28,12 @@ const getMessages = async (
   }
 };
 
-const getConversation = async (id: string): Promise<Conversation> => {
+const listConversations = async (params?: {
+  cursor?: string;
+  limit?: number;
+}): Promise<ConversationsPage> => {
   try {
-    const response: GetConversationResponse = await apiClient.get(`/conversations/${id}`);
-    return response.data;
-  } catch (error) {
-    throw handleApiError(error);
-  }
-};
-
-const listConversations = async (): Promise<Conversation[]> => {
-  try {
-    const response: GetConversationsResponse = await apiClient.get('/conversations');
+    const response: GetConversationsResponse = await apiClient.get('/conversations', { params });
     return response.data;
   } catch (error) {
     throw handleApiError(error);
@@ -98,7 +92,6 @@ const createDirectConversation = async (
 
 export {
   getMessages,
-  getConversation,
   listConversations,
   deleteConversation,
   updateConversation,
