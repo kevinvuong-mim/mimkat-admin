@@ -39,6 +39,10 @@ export function useChat(options: UseChatOptions = {}) {
   const listenersBoundRef = useRef(false);
   const sendInFlightRef = useRef<Set<string>>(new Set());
   const joinedConversationsRef = useRef<Set<string>>(new Set());
+  const disconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onConversationDeletedRef = useRef(onConversationDeleted);
+
+  onConversationDeletedRef.current = onConversationDeleted;
 
   const [isConnected, setIsConnected] = useState(false);
 
@@ -102,6 +106,11 @@ export function useChat(options: UseChatOptions = {}) {
 
   const connect = useCallback(() => {
     if (!enabled) return;
+
+    if (disconnectTimeoutRef.current) {
+      clearTimeout(disconnectTimeoutRef.current);
+      disconnectTimeoutRef.current = null;
+    }
 
     if (!socketRef.current) {
       socketRef.current = createChatSocket();
@@ -176,16 +185,25 @@ export function useChat(options: UseChatOptions = {}) {
         );
 
         queryClient.removeQueries({ queryKey: chatQueryKeys.messages(conversationId) });
-        onConversationDeleted?.(conversationId);
+        onConversationDeletedRef.current?.(conversationId);
       },
     );
 
     if (!socket.connected) socket.connect();
-  }, [enabled, onConversationDeleted, queryClient, upsertMessageInCache]);
+  }, [enabled, queryClient, upsertMessageInCache]);
 
   const disconnect = useCallback(() => {
-    socketRef.current?.removeAllListeners();
-    socketRef.current?.disconnect();
+    const socket = socketRef.current;
+    if (!socket) return;
+
+    socket.removeAllListeners();
+
+    if (socket.connected) {
+      socket.disconnect();
+    } else {
+      socket.close();
+    }
+
     socketRef.current = null;
     listenersBoundRef.current = false;
     sendInFlightRef.current.clear();
@@ -200,7 +218,12 @@ export function useChat(options: UseChatOptions = {}) {
       disconnect();
     }
 
-    return () => disconnect();
+    return () => {
+      disconnectTimeoutRef.current = setTimeout(() => {
+        disconnectTimeoutRef.current = null;
+        disconnect();
+      }, 0);
+    };
   }, [enabled, connect, disconnect]);
 
   const joinConversation = useCallback((conversationId: string) => {
