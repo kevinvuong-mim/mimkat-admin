@@ -7,10 +7,12 @@ interface CurrentUser {
   isActive: boolean;
   updatedAt: string;
   username?: string;
+  isOnline?: boolean;
   hasPassword: boolean;
   phoneNumber?: string;
   hasGoogleAuth: boolean;
   isEmailVerified: boolean;
+  lastSeenAt?: string | null;
 }
 
 interface CurrentUserState {
